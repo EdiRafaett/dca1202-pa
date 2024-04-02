@@ -27,8 +27,6 @@ void eqseg(int a, int b, int c){
   else{
     printf("sem solução real");
   }
-  
-  return 0;
 }
 void modulo(int a, int b, int c){
   double raiz, squad = ((a*a)+(b*b)+(c*c));
