@@ -31,40 +31,37 @@ void imprime_matriz(int **matriz, int linhas, int colunas) {
     }
 }
 
-    int main() {
-        // Definindo as dimensões das matrizes
-        int NLA = 2, NCA = 3; // Número de linhas e colunas de A
-        int NCB = 2; // Número de colunas de B
+int main() {
+    // Definindo as dimensões das matrizes
+    int NLA = 4, NCA = 4; // Número de linhas e colunas de A
+    int NCB = 4; // Número de colunas de B
 
-        // Alocando memória para as matrizes A, B e C
-        int **A = malloc(NLA * sizeof(int *)); // Alocando ponteiros para as linhas de A
-        int **B = malloc(NCA * sizeof(int *)); // Alocando ponteiros para as linhas de B
-        int **C = malloc(NLA * sizeof(int *)); // Alocando ponteiros para as linhas de C
-        A[1] = malloc(NCA * sizeof(int));
-        C[1] = malloc(NCB * sizeof(int));
-        B[1] = malloc(NCB * sizeof(int));
-    // Alocando memória para os elementos de cada linha de A, B e C
-    for (int i = 0; i < NLA; i++) {
-        A[i] = (int *)malloc(NCA * sizeof(int));
-        C[i] = (int *)malloc(NCB * sizeof(int));
+    // Alocando memória para as matrizes A, B e C
+    int **A = malloc(NLA * sizeof(int *)); // Alocando ponteiros para as linhas de A
+    int **B = malloc(NCA * sizeof(int *)); // Alocando ponteiros para as linhas de B
+    int **C = malloc(NLA * sizeof(int *)); // Alocando ponteiros para as linhas de C
+    A[0] = malloc(NCA * NLA * sizeof(int));
+    C[0] = malloc(NCB * NCA * sizeof(int));
+    B[0] = malloc(NCB * NLA * sizeof(int));
+    for (int i = 1; i < NLA; i++) {
+        A[i] = A[i-1]+NCA;               
+        C[i] = C[i-1]+NCB;
+    }                                    //estratégia para o for começar em 0 e "pular " de forma correta.
+    for (int i = 1; i < NCA; i++) {
+        B[i] = B[i-1] + NCB;
     }
-    for (int i = 0; i < NCA; i++) {
-        B[i] = (int *)malloc(NCB * sizeof(int));
-    }
-
     // Preenchendo as matrizes A e B
     for (int i = 0; i < NLA; i++) {
         for (int j = 0; j < NCA; j++) {
-            A[i][j] = i * NCA + j + 1; // Preenchendo A com valores de 1 a NLA * NCA
+            A[i][j] = i; // Preenchendo A com valores de 1 a NLA * NCA
         }
     }
     for (int i = 0; i < NCA; i++) {
         for (int j = 0; j < NCB; j++) {
-            B[i][j] = i * NCB + j + 1; // Preenchendo B com valores de 1 a NCA * NCB
+            B[i][j] = i ; // Preenchendo B com valores de 1 a NCA * NCB
         }
     }
-
-    // Chamada da função que multiplica as matrizes 
+ // Chamada da função que multiplica as matrizes 
     multiplica_matrizes(A, B, C, NLA, NCA, NCB);
 
     // Imprimindo as matrizes A, B e C
@@ -76,16 +73,17 @@ void imprime_matriz(int **matriz, int linhas, int colunas) {
     imprime_matriz(C, NLA, NCB);
 
     // Liberando a memória alocada
-    for (int i = 0; i < NLA; i++) {
-        free(A[i]);
-        free(C[i]);
-    }
-    for (int i = 0; i < NCA; i++) {
-        free(B[i]);
-    }
-    free(A);
-    free(B);
-    free(C);
+  
+        free(A[0]);
+        free(C[0]);
+        free(B[0]);
+        free(A);
+        free(B);
+        free(C);
 
     return 0;
+
 }
+
+
+

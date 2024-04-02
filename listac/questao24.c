@@ -4,18 +4,18 @@ void send (unsigned long estado){
 }
 
 // Função para converter uma matriz 8x8 de 0s e 1s em um unsigned long
-unsigned long matriz_para_ulong(unsigned char matriz[8][8]) {
-    unsigned long estado = 0;
+void matriz_para_ulong(unsigned char matriz[8][8]) {
+    unsigned long estado = 0, *point;
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             // Desloca o resultado para a esquerda (multiplicação por 2) e adiciona o valor da célula.
             //em outras palavras: << "empurra" os bits uma posição a esquerda liberando um espaço e o | coloca o bit seguinte nesse espaço"
             estado = (estado << 1) | matriz[i][j];
         }
+        point = &estado;
     }
     //enviando resultado para a função de saída:
-    send(estado);
-    return estado;
+    send(*point);
 }
 
 int main() {

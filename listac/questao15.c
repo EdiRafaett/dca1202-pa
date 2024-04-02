@@ -57,3 +57,7 @@ int main() {
 
     return 0;
 }
+
+/*recebe a quantidade de elementos e os elementos, que logo em seguida são enviados para a bubblesort
+que compara os elemtos do array, caso necessário trocar manda para a função os endereços dos valores que 
+vao ser recebidos por ponteiros e a troca de valor nos endereços acontece.*/

@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//criação da função soma de vetores com variáveis que apontam para o mesmo lugar que varáveis na main:
-int soma_vetores(int *vet1, int *vet2, int *vet3, int n) {
+//criação da função soma de vetores com parametros que apontam para o mesmo lugar que varáveis na main:
+void soma_vetores(int *vet1, int *vet2, int *vet3, int n) {
     for (int i = 0; i < n; i++) {
         vet3[i] = vet1[i] + vet2[i]; // APRENDIZADO: vet3 aponta para o mesmo endereço de v3 assim como vet2 para v2 e vet1  para v1
     }
