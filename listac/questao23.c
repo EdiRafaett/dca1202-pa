@@ -26,11 +26,14 @@ int funcao2(int vetor[], int v, int i, int f){
 }
 
 /*JULGANDO ALTERNATIVAS:
-I. O resultado da impressão na linha 24 é: 7 - 7. Verdadeiro: a função 1 vai retornar 7
+I. O resultado da impressão na linha 24 é: 7 - 7. >>>>>Verdadeiro: a função 1 vai retornar 7
 pois vai comparar o 15 que ela recebeu com cada posição do vetor até encontrar o 15 que está na posição 7,
 a função 1 portanto retorna i que vale 7.
 Já a chamada da função 2 basicamente obterá m=4 pois é inteiro... e a condição que se encaixa é a que repete 
 todo mundo e acrecenta 1 a m... quando repetir algumas vezes m=7 que equivale a 15 no vetor.. como a comparação
 é verdadeira retorna o valor de m que é 7 
+II. A função funcao1, no pior caso, é uma estratégia mais rápida do que a funcao2. >>>> Não sei.
+III. A função funcao2 implementa uma estratégia iterativa na concepção do algoritmo. >>>> acredito que sim
+a função fica retornando para ela mesmo de forma interativa até que chegue em um valor que consiga sair. 
 
 */
