@@ -14,5 +14,7 @@ int main(void){
 }
 
 /*Alguns parâmetros estavam sendo passados dentro do proprio struct o que estava causando erro. 
-Com essa mudanças que fiz o codigo começou a funcionar. */
+Com essa mudanças que fiz o codigo começou a funcionar.
+
+APRESENTA ERRO POR MINHA PARTE */
 
