@@ -4,7 +4,7 @@ class Sculptor {
 private:
     Voxel ***v; // 3D matrix
     int nx,ny,nz; // Dimensions
-    float r,g,b,a; // Current drawing color
+    float r,g,b,a; // cores para os voxels
 public:
     Sculptor(int _nx, int _ny, int _nz);
     ~Sculptor();
