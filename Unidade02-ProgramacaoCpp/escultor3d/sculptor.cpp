@@ -83,7 +83,7 @@ void Sculptor::setColor(float r, float g, float b, float a){
 void Sculptor::putVoxel(int x, int y, int z){
     /*Condição que checa se os valores dos parametros estão dentro
     dos valores válidos para nx, ny, nz */
-    if((this -> nx >x) && (this -> ny >y) && (this -> ny > y )){
+    if((this -> nx >x) && (this -> ny >y) && (this -> nz > z )){
         this -> v[x][y][z].show = true;
         this -> v[x][y][z].r;
         this -> v[x][y][z].g;
@@ -95,5 +95,14 @@ void Sculptor::putVoxel(int x, int y, int z){
 }
 
 /*--------------------------------------------------------------------*/
-// POR ENQUANTO É ISSO!!!!!!!
+
+//IPLEMENTAÇÃO DO CUTVOXEL (DESATIVAÇÃO DE VOXEL)
+void Sculptor::cutVoxel(int x, int y, int z){
+    if((this -> nx >x) && (this -> ny >y) && (this -> nz > y)){
+        this -> v[x][y][z].show = false;
+    }
+}
+
+/*---------------------------------------------------------------------*/
+
 
