@@ -4,3 +4,4 @@ void Sculptor::cutVoxel(int x, int y, int z){
         this -> v[x][y][z].show = false;
     }
 }
+

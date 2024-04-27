@@ -3,6 +3,7 @@
 
 using namespace std;
 
+/*-------------------------------------------------------------------------------*/
 //IMPLEMENTAÇÃO DO CONSTRUTOR DA CLASSE:
 Sculptor::Sculptor(int _nx, int _ny, int _nz) { //parametro da função
 
@@ -20,17 +21,27 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz) { //parametro da função
     //Declarando incrementadores dos laços:
     int i, j, k;
 
-    //Alocando a matriz 3D:
-    v = new Voxel **[nx]; //Alocação de nx blocos (ponteiro para ponteiro)
-    for (i = 0; i < nx; i++){
-        v[i] = new Voxel *[ny]; //Alocação de ny blocos (ponteiro)
+    //ALOCANDO MEMÓRIA 3D:
+    //Alocando memória para o array auxiliar que receberá endereços das linhas onde inicia-se cada plano:
+    v = new Voxel **[nx];
+    //Alocando memória para o array que receberá o endereço do voxel de inicio de cada linha:
+    v[0] = new Voxel *[nx * ny];
+    //Alocando memória  para todos os voxels da matriz:
+    v[0][0] = new Voxel [nx * ny * nz];
+    //Passando os endereços de inicio de cada plano para o array auxiliar:
+    for (i = 1; i < nx; i++){
+        v[i] = v[i - 1] + ny;
     }
-
+    //Passando os endereços dos voxels de início de cada linha de cada plano:
     for(i = 0; i < nx; i++){
-        for (j = 0; j < ny; j++){
-            v[i][j] = new Voxel [nz]; //Alocação de nz blocos
+        if(i != 0){
+            v[i][0] = v[i - 1][ny - 1] + nz;
+        }
+        for (j = 1; j < ny; j++){
+            v[i][j] = v[i][j - 1] + nz;
         }
     }
+
     //Iniciando os voxels com cores e transparencia zero e estado false:
     for(i = 0; i < nx; i++){
         for (j = 0; j < ny; j++){
@@ -49,21 +60,9 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz) { //parametro da função
 
 //IMPLEMENTO DO DESTRUIDOR DE CLASSES:
 Sculptor::~Sculptor(){
-
-    //Declarando incrementadores dos laços:
-    int i, j;
-
-    //Liberação da matriz 3D:
-    for(i = 0; i < nx; i++){
-        for (j = 0; j < ny; j++){
-            delete[] v[i][j]; //liberação da última alocação
-        }
-    }
-
-    for(i = 0; i < nx; i++){
-        delete[] v[i]; //liberação da penúltima alocação
-    }
-    delete[] v; //liberação da ultima alocação
+    delete[] v[0][0];
+    delete[] v[0];
+    delete[] v;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -79,7 +78,7 @@ void Sculptor::setColor(float r, float g, float b, float a){
 
 /*--------------------------------------------------------------------------*/
 
-//IMPLEMENTAÇÃO DO PUTVOXEL (ATIVAÇÃO De VOXEL):
+//IMPLEMENTAÇÃO DO PUTVOXEL (ATIVAÇÃO DE VOXEL):
 void Sculptor::putVoxel(int x, int y, int z){
     /*Condição que checa se os valores dos parametros estão dentro
     dos valores válidos para nx, ny, nz */
@@ -104,5 +103,13 @@ void Sculptor::cutVoxel(int x, int y, int z){
 }
 
 /*---------------------------------------------------------------------*/
+//IMPLEMENTAÇÃO DO WRITHOFF:
+//void Sculptor::writeOFF(const char *filename){
+    //int i, j, k, n_voxels; //contadores de iteração
+    //int n_verticies; //contador de verticies
+    //ofstream fout; //Objeto para fluexo de saida
+    //fout.open(filename)
 
+//}
+//CONTINUAR A IMPLEMENTAÇÃO DO WRITHOFF
 
