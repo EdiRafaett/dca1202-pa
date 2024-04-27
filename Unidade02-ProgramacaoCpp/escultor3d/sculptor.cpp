@@ -1,5 +1,8 @@
 #include "sculptor.h" //Inclusão de declaração da classe
 #include <iostream>
+#include <cmath>
+#include <fstream> //inclusão de fluxo para arquivos
+#include <cstdlib> //inclusão da função exit
 
 using namespace std;
 
@@ -84,10 +87,10 @@ void Sculptor::putVoxel(int x, int y, int z){
     dos valores válidos para nx, ny, nz */
     if((this -> nx >x) && (this -> ny >y) && (this -> nz > z )){
         this -> v[x][y][z].show = true;
-        this -> v[x][y][z].r;
-        this -> v[x][y][z].g;
-        this -> v[x][y][z].b;
-        this -> v[x][y][z].a;
+        this -> v[x][y][z].r = this -> r;
+        this -> v[x][y][z].g = this -> g;
+        this -> v[x][y][z].b = this -> b;
+        this -> v[x][y][z].a = this -> a;
         /*Se a condição for verdadeira o voxel tem cores
         transparencia atribuidos e estado ligado */
     }
@@ -104,12 +107,66 @@ void Sculptor::cutVoxel(int x, int y, int z){
 
 /*---------------------------------------------------------------------*/
 //IMPLEMENTAÇÃO DO WRITHOFF:
-//void Sculptor::writeOFF(const char *filename){
-    //int i, j, k, n_voxels; //contadores de iteração
-    //int n_verticies; //contador de verticies
-    //ofstream fout; //Objeto para fluexo de saida
-    //fout.open(filename)
+void Sculptor::writeOFF(const char *filename){
+    int i, j, k, n_voxels = 0; //contadores de iteração
+    int n_verticies; //contador de verticies
+    ofstream fout; //Objeto para fluxo de saida
+    fout.open(filename);
+    //Verificação da abertura do fluxo
+    if(!fout.is_open()){
+        cout << "O arquivo não pôde ser aberto" << endl;
+        exit(1);
+    }
 
-//}
+    for(i = 0; i < nx; i++){
+        for(j = 0; j < ny; j++){
+            for(k = 0; k <nz; k++){
+                if(v[i][j][k].show == true){
+                    n_voxels = n_voxels + 1;
+                }
+
+            }
+        }
+    }
+
+    fout << "OFF" << endl;
+    fout << n_voxels*8 << " " << n_voxels*6 << " " << n_voxels*0 << endl;
+
+    for(i = 0; i < nx; i++){
+        for(j = 0; j < ny; j++){
+            for(k = 0; k <nz; k++){
+                if(v[i][j][k].show == true){
+                    fout << i - 0.5 << " " << j + 0.5 << " " << k - 0.5 << endl;
+                    fout << i - 0.5 << " " << j - 0.5 << " " << k - 0.5 << endl;
+                    fout << i + 0.5 << " " << j - 0.5 << " " << k - 0.5 << endl;
+                    fout << i + 0.5 << " " << j + 0.5 << " " << k - 0.5 << endl;
+                    fout << i - 0.5 << " " << j + 0.5 << " " << k + 0.5 << endl;
+                    fout << i - 0.5 << " " << j - 0.5 << " " << k + 0.5 << endl;
+                    fout << i + 0.5 << " " << j - 0.5 << " " << k + 0.5 << endl;
+                    fout << i + 0.5 << " " << j + 0.5 << " " << k + 0.5 << endl;
+                }
+            }
+        }
+    }
+    n_voxels = 0;
+    for(i = 0; i < nx; i++){
+        for(j = 0; j < ny; j++){
+            for(k = 0; k <nz; k++){
+                if(v[i][j][k].show == true){
+                    n_verticies = n_voxels * 8;
+                    fout << "4" << " " << n_verticies + 0 << " " << n_verticies +1 << " " << n_verticies + 2 << " " << n_verticies + 3 << " " << v[i][j][k].r << " " << v[i][j][k].g << " " << v[i][j][k].b << " " << v[i][j][k].a << endl;
+                    fout << "4" << " " << n_verticies + 4 << " " << n_verticies +5 << " " << n_verticies + 6 << " " << n_verticies + 7 << " " << v[i][j][k].r << " " << v[i][j][k].g << " " << v[i][j][k].b << " " << v[i][j][k].a << endl;
+                    fout << "4" << " " << n_verticies + 0 << " " << n_verticies +4 << " " << n_verticies + 5 << " " << n_verticies + 1 << " " << v[i][j][k].r << " " << v[i][j][k].g << " " << v[i][j][k].b << " " << v[i][j][k].a << endl;
+                    fout << "4" << " " << n_verticies + 0 << " " << n_verticies +3 << " " << n_verticies + 7 << " " << n_verticies + 4 << " " << v[i][j][k].r << " " << v[i][j][k].g << " " << v[i][j][k].b << " " << v[i][j][k].a << endl;
+                    fout << "4" << " " << n_verticies + 3 << " " << n_verticies +2 << " " << n_verticies + 6 << " " << n_verticies + 7 << " " << v[i][j][k].r << " " << v[i][j][k].g << " " << v[i][j][k].b << " " << v[i][j][k].a << endl;
+                    fout << "4" << " " << n_verticies + 1 << " " << n_verticies +5 << " " << n_verticies + 6 << " " << n_verticies + 2 << " " << v[i][j][k].r << " " << v[i][j][k].g << " " << v[i][j][k].b << " " << v[i][j][k].a << endl;
+                    n_voxels = n_voxels +1;
+                }
+
+            }
+        }
+    }
+    fout.close();
+}
 //CONTINUAR A IMPLEMENTAÇÃO DO WRITHOFF
 
