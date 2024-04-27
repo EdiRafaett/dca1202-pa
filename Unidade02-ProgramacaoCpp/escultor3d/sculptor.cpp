@@ -104,8 +104,28 @@ void Sculptor::cutVoxel(int x, int y, int z){
         this -> v[x][y][z].show = false;
     }
 }
+/*-----------------------------------------------------------------------*/
+// IMPLEMENTAÇÃO DO PUTBOX:
+void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1){
+    int i, j, k;
+
+    if((this -> nx >= x0 && this -> nx >= x1) && (this -> ny >= y0 && this -> ny >= y1 ) && (nz >= z0 && this -> nz >= z1)){
+        for(i = x0; i < x1; i++){
+            for(j = y0; j < y1; j++){
+                for(k = z0; k < z1; k++){
+                    this -> v[i][j][k].show = true;
+                    this -> v[i][j][k].r = this -> r;
+                    this -> v[i][j][k].g = this -> g;
+                    this -> v[i][j][k].b = this -> b;
+                    this -> v[i][j][k].a = this -> a;
+                }
+            }
+        }
+    }
+}
 
 /*---------------------------------------------------------------------*/
+
 //IMPLEMENTAÇÃO DO WRITHOFF:
 void Sculptor::writeOFF(const char *filename){
     int i, j, k, n_voxels = 0; //contadores de iteração
@@ -168,5 +188,6 @@ void Sculptor::writeOFF(const char *filename){
     }
     fout.close();
 }
-//CONTINUAR A IMPLEMENTAÇÃO DO WRITHOFF
+
+
 
