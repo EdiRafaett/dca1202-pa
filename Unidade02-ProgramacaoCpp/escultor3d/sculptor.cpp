@@ -6,8 +6,9 @@
 
 using namespace std;
 
-/*-------------------------------------------------------------------------------*/
-//IMPLEMENTAÇÃO DO CONSTRUTOR DA CLASSE:
+/*=================================================================================
+IMPLEMENTAÇÃO DO CONSTRUTOR DA CLASSE:
+==================================================================================*/
 Sculptor::Sculptor(int _nx, int _ny, int _nz) { //parametro da função
 
     //Passagem dos valores dos parametros para as variáveis privadas:
@@ -59,18 +60,18 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz) { //parametro da função
     }
 }
 
-/*--------------------------------------------------------------------------*/
-
-//IMPLEMENTO DO DESTRUIDOR DE CLASSES:
+/*=================================================================================
+IMPLEMENTO DO DESTRUIDOR DE CLASSES:
+=================================================================================*/
 Sculptor::~Sculptor(){
     delete[] v[0][0];
     delete[] v[0];
     delete[] v;
 }
 
-/*-------------------------------------------------------------------------*/
-
-//IMPLEMENTAÇÃO DO SETCOLOR:
+/*=================================================================================
+IMPLEMENTAÇÃO DO SETCOLOR:
+==================================================================================*/
 void Sculptor::setColor(float r, float g, float b, float a){
     //r,g,b,a protegidos recebendo os valores dos parametros:
     this -> r = r;
@@ -79,9 +80,9 @@ void Sculptor::setColor(float r, float g, float b, float a){
     this -> a = a;
 }
 
-/*--------------------------------------------------------------------------*/
-
-//IMPLEMENTAÇÃO DO PUTVOXEL (ATIVAÇÃO DE VOXEL):
+/*=================================================================================
+IMPLEMENTAÇÃO DO PUTVOXEL (ATIVAÇÃO DE VOXEL):
+==================================================================================*/
 void Sculptor::putVoxel(int x, int y, int z){
     /*Condição que checa se os valores dos parametros estão dentro
     dos valores válidos para nx, ny, nz */
@@ -96,16 +97,17 @@ void Sculptor::putVoxel(int x, int y, int z){
     }
 }
 
-/*--------------------------------------------------------------------*/
-
-//IPLEMENTAÇÃO DO CUTVOXEL (DESATIVAÇÃO DE VOXEL)
+/*=================================================================================
+IPLEMENTAÇÃO DO CUTVOXEL (DESATIVAÇÃO DE VOXEL)
+==================================================================================*/
 void Sculptor::cutVoxel(int x, int y, int z){
     if((this -> nx >x) && (this -> ny >y) && (this -> nz > y)){
         this -> v[x][y][z].show = false;
     }
 }
-/*-----------------------------------------------------------------------*/
-// IMPLEMENTAÇÃO DO PUTBOX:
+/*=================================================================================
+IMPLEMENTAÇÃO DO PUTBOX:
+==================================================================================*/
 void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1){
     int i, j, k;
 
@@ -124,9 +126,9 @@ void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1){
     }
 }
 
-/*---------------------------------------------------------------------*/
-
-//IMPLEMENTAÇÃO DO WRITHOFF:
+/*=================================================================================
+IMPLEMENTAÇÃO DO WRITHOFF:
+==================================================================================*/
 void Sculptor::writeOFF(const char *filename){
     int i, j, k, n_voxels = 0; //contadores de iteração
     int n_verticies; //contador de verticies
