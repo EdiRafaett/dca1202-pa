@@ -7,7 +7,7 @@ int main(){
     Sculptor escultura(100, 100, 100);
    // escultura.putVoxel(0, 0, 0); // coordenadas
     //pernas
-    escultura.setColor(0, 0, 1, 1); //cores e trnsparencia
+    escultura.setColor(0, 0, 1, 1); //cores e transparencia
     escultura.putBox(25, 30, 10, 22, 25, 33);
     escultura.putBox(31, 36, 10, 22, 25, 33);
     //botas:
@@ -23,10 +23,6 @@ int main(){
     escultura.setColor(0.6, 0.5, 0.4, 1);
     escultura.putBox(21, 24, 22, 32, 25, 33);//direito
     escultura.putBox(37, 40, 22, 32, 25, 33); //Esquerdo
-    //Cabeça(largura do tronco começa na altura dos ombros):
-    escultura.putBox(25, 36, 36, 41, 25, 33);
-
-
 
     escultura.writeOFF((char *) "/home/rafaett/arquivosoff/saida.off");
     return 0;
