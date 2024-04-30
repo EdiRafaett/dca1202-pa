@@ -354,6 +354,7 @@ DIST          = /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/qt_config.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/spec_post.prf \
+		../../.qmake.stash \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/toolchain.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/default_pre.prf \
@@ -678,6 +679,7 @@ Makefile: ../../escultor3d.pro /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/linux-g++/q
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/qt_config.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/toolchain.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/default_pre.prf \
@@ -991,6 +993,7 @@ Makefile: ../../escultor3d.pro /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/linux-g++/q
 /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/qt_config.prf:
 /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/toolchain.prf:
 /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/default_pre.prf:

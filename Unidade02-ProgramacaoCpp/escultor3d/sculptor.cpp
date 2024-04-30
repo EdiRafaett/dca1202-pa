@@ -3,6 +3,7 @@
 #include <cmath>
 #include <fstream> //inclusão de fluxo para arquivos
 #include <cstdlib> //inclusão da função exit
+//#include <opencv2/highgui.hpp>
 
 using namespace std;
 
@@ -127,6 +128,49 @@ void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1){
 }
 
 /*=================================================================================
+IMPLEMENTAÇÃO DO PUTSPHERE:
+==================================================================================*/
+void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius){
+    int i, j, k;
+    for(i = 0; i < nx; i++){
+            for(j = 0; j < ny; j++){
+                for(k = 0; k < nz; k++){
+                    if((pow(i - xcenter, 2)) + (pow(j - ycenter, 2)) + (pow(k - zcenter, 2)) <= (pow(radius, 2))){
+                        this -> v[i][j][k].show = true;
+                        this -> v[i][j][k].r = this -> r;
+                        this -> v[i][j][k].g = this -> g;
+                        this -> v[i][j][k].b = this -> b;
+                        this -> v[i][j][k].a = this -> a;
+
+                    }
+                }
+            }
+        }
+}
+
+
+
+
+/*=================================================================================
+ IMPLEMENTAÇÃO DO CUTSPEHERE:
+=================================================================================*/
+void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius){
+    int i, j, k;
+
+    for(i = 0; i < nx; i++){
+        for(j = 0; j < ny; j++){
+            for(k = 0; k < nz; k++){
+                if((pow(i - xcenter, 2)) + (pow(j - ycenter, 2)) + (pow(k - zcenter, 2)) <= (pow(radius, 2))){
+                    this -> v[i][j][k].show = false;
+                }
+            }
+        }
+    }
+}
+
+
+
+/*=================================================================================
 IMPLEMENTAÇÃO DO WRITHOFF:
 ==================================================================================*/
 void Sculptor::writeOFF(const char *filename){
@@ -189,6 +233,27 @@ void Sculptor::writeOFF(const char *filename){
         }
     }
     fout.close();
+}
+
+
+//TENTATIVAS:
+
+void Sculptor::putSuperficiesphere(int xcenter, int ycenter, int zcenter, int radius){
+    int i, j, k;
+    for(i = 0; i < nx; i++){
+        for(j = 0; j < ny; j++){
+            for(k = 0; k < nz; k++){
+                int dist_sq = (pow(i - xcenter, 2)) + (pow(j - ycenter, 2)) + (pow(k - zcenter, 2));
+                if(dist_sq >= pow(radius-1, 2) && dist_sq <= pow(radius+1, 2)){
+                    this -> v[i][j][k].show = true;
+                    this -> v[i][j][k].r = this -> r;
+                    this -> v[i][j][k].g = this -> g;
+                    this -> v[i][j][k].b = this -> b;
+                    this -> v[i][j][k].a = this -> a;
+                }
+            }
+        }
+    }
 }
 
 
