@@ -1,6 +1,5 @@
 #ifndef SCULPTOR_H
 #define SCULPTOR_H
-#include <opencv2/opencv.hpp>
 
 struct Voxel {
     float r,g,b; // Cores
@@ -27,7 +26,7 @@ public:
     //void cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz);
     void writeOFF(const char* filename);
     void putSuperficiesphere(int xcenter, int ycenter, int zcenter, int radius);
-    void putTextureOnSphere(int xcenter, int ycenter, int zcenter, int radius, cv::Mat &image); //CASCA E TEXTURA
+    //void putTextureOnSphere(int xcenter, int ycenter, int zcenter, int radius); //CASCA E TEXTURA
 
 };
 

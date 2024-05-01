@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DQT_QML_DEBUG
 CFLAGS        = -pipe -g -Wall -Wextra $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++1z -Wall -Wextra $(DEFINES)
-INCPATH       = -I../../../escultor3d -I. -I/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../../../escultor3d -I. -I/usr/local/include/opencv4 -I/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/rafaett/Qt/6.8.0/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = escultor3d1.0.0
 DISTDIR = /home/rafaett/dca1202-pa/Unidade02-ProgramacaoCpp/escultor3d/build/Desktop_Qt_6_8_0_64-Debug/.tmp/escultor3d1.0.0
 LINK          = g++
 LFLAGS        = 
-LIBS          = $(SUBLIBS)    
+LIBS          = $(SUBLIBS) -L/usr/local/lib -lopencv_gapi -lopencv_stitching -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired -lopencv_ccalib -lopencv_dnn_objdetect -lopencv_dnn_superres -lopencv_dpm -lopencv_face -lopencv_fuzzy -lopencv_hfs -lopencv_img_hash -lopencv_intensity_transform -lopencv_line_descriptor -lopencv_mcc -lopencv_quality -lopencv_rapid -lopencv_reg -lopencv_rgbd -lopencv_saliency -lopencv_signal -lopencv_stereo -lopencv_structured_light -lopencv_phase_unwrapping -lopencv_superres -lopencv_optflow -lopencv_surface_matching -lopencv_tracking -lopencv_highgui -lopencv_datasets -lopencv_text -lopencv_plot -lopencv_videostab -lopencv_videoio -lopencv_wechat_qrcode -lopencv_xfeatures2d -lopencv_shape -lopencv_ml -lopencv_ximgproc -lopencv_video -lopencv_xobjdetect -lopencv_objdetect -lopencv_calib3d -lopencv_imgcodecs -lopencv_features2d -lopencv_dnn -lopencv_flann -lopencv_xphoto -lopencv_photo -lopencv_imgproc -lopencv_core   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -360,6 +360,7 @@ DIST          = /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/default_pre.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/resolve_config.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/default_post.prf \
+		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/link_pkgconfig.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/qml_debug.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/warn_on.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/qmake_use.prf \
@@ -685,6 +686,7 @@ Makefile: ../../escultor3d.pro /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/linux-g++/q
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/default_pre.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/resolve_config.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/default_post.prf \
+		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/link_pkgconfig.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/qml_debug.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/warn_on.prf \
 		/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/qmake_use.prf \
@@ -999,6 +1001,7 @@ Makefile: ../../escultor3d.pro /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/linux-g++/q
 /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/default_pre.prf:
 /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/resolve_config.prf:
 /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/default_post.prf:
+/home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/link_pkgconfig.prf:
 /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/qml_debug.prf:
 /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/warn_on.prf:
 /home/rafaett/Qt/6.8.0/gcc_64/mkspecs/features/qmake_use.prf:

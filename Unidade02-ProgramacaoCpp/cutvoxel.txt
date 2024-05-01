@@ -1,7 +1,0 @@
-//IPLEMENTAÇÃO DO CUTVOXEL (DESATIVAÇÃO DE VOXEL)
-void Sculptor::cutVoxel(int x, int y, int z){
-    if((this -> nx >x) && (this -> ny >y) && (this -> ny > y)){
-        this -> v[x][y][z].show = false;
-    }
-}
-

@@ -264,39 +264,7 @@ void Sculptor::putSuperficiesphere(int xcenter, int ycenter, int zcenter, int ra
 /*=================================================================================
 IMPLEMENTAÇÃO DA CASCA DA ESFERA COM TEXTURA:
 ==================================================================================*/
-void Sculptor::putTextureOnSphere(int xcenter, int ycenter, int zcenter, int radius, cv::Mat &image){
-    //Carregando a imagem:
-    //cv::Mat image = cv::imread("/home/rafaett/variados/earth.jpg");
-    if(image.empty()){
-        cout << "Não foi possível abrir a imagem" << endl;
-    }
-    int i, j, k;
-    for(i = 0; i < nx; i++){
-        for(j = 0; j < ny; j++){
-            for(k = 0; k < nz; k++){
-                if((pow(i - xcenter, 2)) + (pow(j - ycenter, 2)) + (pow(k - zcenter, 2)) <= (pow(radius, 2))){
-                    // Converte as coordenadas cartesianas para esféricas
-                    double theta = atan2(j - ycenter, i - xcenter);
-                    double phi = acos((k - zcenter) / (double)radius);
 
-                    // Mapeia as coordenadas esféricas para as coordenadas da imagem
-                    int u = image.cols * (theta + M_PI) / (2 * M_PI);
-                    int v = image.rows * phi / M_PI;
-
-                    // Obtém a cor do pixel correspondente na imagem
-                    cv::Vec3b color = image.at<cv::Vec3b>(v, u);
-
-                    // Atribui a cor ao voxel
-                    this -> v[i][j][k].show = true;
-                    this -> v[i][j][k].r = color[2]; // R
-                    this -> v[i][j][k].g = color[1]; // G
-                    this -> v[i][j][k].b = color[0]; // B
-                    this -> v[i][j][k].a = this -> a;
-                }
-            }
-        }
-    }
-}
 
 
 
