@@ -7,8 +7,8 @@ CONFIG += link_pkgconfig
 PKGCONFIG += opencv4
 
 SOURCES += \
-        main.cpp \
-        sculptor.cpp
+        escultordigital.cpp \
+        main.cpp
 
 HEADERS += \
-    sculptor.h
+    escultordigital.h

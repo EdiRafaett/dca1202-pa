@@ -1,4 +1,4 @@
-#include "sculptor.h" //Inclusão de declaração da classe
+#include "escultordigital.h" //Inclusão de declaração da classe
 #include <iostream>
 #include <cmath>
 #include <fstream> //inclusão de fluxo para arquivos
@@ -136,19 +136,19 @@ IMPLEMENTAÇÃO DO PUTSPHERE:
 void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius){
     int i, j, k;
     for(i = 0; i < nx; i++){
-            for(j = 0; j < ny; j++){
-                for(k = 0; k < nz; k++){
-                    if((pow(i - xcenter, 2)) + (pow(j - ycenter, 2)) + (pow(k - zcenter, 2)) <= (pow(radius, 2))){
-                        this -> v[i][j][k].show = true;
-                        this -> v[i][j][k].r = this -> r;
-                        this -> v[i][j][k].g = this -> g;
-                        this -> v[i][j][k].b = this -> b;
-                        this -> v[i][j][k].a = this -> a;
+        for(j = 0; j < ny; j++){
+            for(k = 0; k < nz; k++){
+                if((pow(i - xcenter, 2)) + (pow(j - ycenter, 2)) + (pow(k - zcenter, 2)) <= (pow(radius, 2))){
+                    this -> v[i][j][k].show = true;
+                    this -> v[i][j][k].r = this -> r;
+                    this -> v[i][j][k].g = this -> g;
+                    this -> v[i][j][k].b = this -> b;
+                    this -> v[i][j][k].a = this -> a;
 
-                    }
                 }
             }
         }
+    }
 }
 
 
@@ -220,7 +220,7 @@ void Sculptor::writeOFF(const char *filename){
     n_voxels = 0;
     for(i = 0; i < nx; i++){
         for(j = 0; j < ny; j++){
-            for(k = 0; k <nz; k++){
+            for(k = 0; k < nz; k++){
                 if(v[i][j][k].show == true){
                     n_verticies = n_voxels * 8;
                     fout << "4" << " " << n_verticies + 0 << " " << n_verticies +1 << " " << n_verticies + 2 << " " << n_verticies + 3 << " " << v[i][j][k].r << " " << v[i][j][k].g << " " << v[i][j][k].b << " " << v[i][j][k].a << endl;
@@ -238,35 +238,79 @@ void Sculptor::writeOFF(const char *filename){
     fout.close();
 }
 
-
 /*=================================================================================
-IMPLEMENTAÇÃO DA CASCA DA ESFERA SEM TEXTURA:
+IMPLEMENTAÇÃO DO PUTELLIPSOID:
 ==================================================================================*/
-
-void Sculptor::putSuperficiesphere(int xcenter, int ycenter, int zcenter, int radius){
+void Sculptor::putEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz){
     int i, j, k;
     for(i = 0; i < nx; i++){
         for(j = 0; j < ny; j++){
             for(k = 0; k < nz; k++){
-                int dist_sq = (pow(i - xcenter, 2)) + (pow(j - ycenter, 2)) + (pow(k - zcenter, 2));
-                if(dist_sq >= pow(radius-1, 2) && dist_sq <= pow(radius+1, 2)){
+                if((pow(i - xcenter, 2))/ pow(rx, 2) + (pow(j - ycenter, 2))/ pow(ry, 2) + (pow(k - zcenter, 2))/ pow(rz, 2) <= 1){
                     this -> v[i][j][k].show = true;
                     this -> v[i][j][k].r = this -> r;
                     this -> v[i][j][k].g = this -> g;
                     this -> v[i][j][k].b = this -> b;
                     this -> v[i][j][k].a = this -> a;
                 }
+
+            }
+        }
+    }
+
+}
+
+/*=================================================================================
+IMPLEMENTAÇÃO DO CUTELLIPSOID:
+==================================================================================*/
+void Sculptor::cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz){
+    int i, j, k;
+    for(i = 0; i < nx; i++){
+        for(j = 0; j < ny; j++){
+            for(k = 0; k < nz; k++){
+                if((pow(i - xcenter, 2))/ pow(rx, 2) + (pow(j - ycenter, 2))/ pow(ry, 2) + (pow(k - zcenter, 2))/ pow(rz, 2) <= 1){
+                    this -> v[i][j][k].show = false;
+                }
             }
         }
     }
 }
 
+
 /*=================================================================================
-IMPLEMENTAÇÃO DA CASCA DA ESFERA COM TEXTURA:
+IMPLEMENTAÇÃO DA ESFERA COM TEXTURA:
 ==================================================================================*/
+void Sculptor::putTextureOnSphere(int xcenter, int ycenter, int zcenter, int radius, cv::Mat &image){
+    if(image.empty()){
+        cout << "Não foi possível abrir a imagem" << endl;
+    }
+    int i, j, k;
+    for(i = 0; i < nx; i++){
+        for(j = 0; j < ny; j++){
+            for(k = 0; k < nz; k++){
+                if((pow(i - xcenter, 2)) + (pow(j - ycenter, 2)) + (pow(k - zcenter, 2)) <= (pow(radius, 2))){
+                    // Converte as coordenadas cartesianas para esféricas
+                    double theta = atan2(j - ycenter, i - xcenter);
+                    double phi = acos((k - zcenter) / (double)radius);
 
+                    // Mapeia as coordenadas esféricas para as coordenadas da imagem
+                    int u = image.cols * (theta + M_PI) / (2 * M_PI);
+                    int v = image.rows * phi / M_PI;
 
+                    // Obtém a cor do pixel correspondente na imagem
+                    cv::Vec3b color = image.at<cv::Vec3b>(v, u);
 
+                    // Atribui a cor ao voxel
+                    this -> v[i][j][k].show = true;
+                    this -> v[i][j][k].r = color[2]; // R
+                    this -> v[i][j][k].g = color[1]; // G
+                    this -> v[i][j][k].b = color[0]; // B
+                    this -> v[i][j][k].a = this -> a;
+                }
+            }
+        }
+    }
+}
 
 
 

@@ -1,5 +1,5 @@
-#ifndef SCULPTOR_H
-#define SCULPTOR_H
+#ifndef ESCULTORDIGITAL_H
+#define ESCULTORDIGITAL_H
 #include <opencv2/opencv.hpp>
 
 struct Voxel {
@@ -23,12 +23,11 @@ public:
     //void cutBox(int x0, int x1, int y0, int y1, int z0, int z1);
     void putSphere(int xcenter, int ycenter, int zcenter, int radius);
     void cutSphere(int xcenter, int ycenter, int zcenter, int radius);
-    //void putEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz);
-    //void cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz);
+    void putEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz);
+    void cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz);
     void writeOFF(const char* filename);
-    void putSuperficiesphere(int xcenter, int ycenter, int zcenter, int radius);
     void putTextureOnSphere(int xcenter, int ycenter, int zcenter, int radius, cv::Mat &image); //CASCA E TEXTURA
 
 };
 
-#endif // SCULPTOR_H
+#endif // ESCULTORDIGITAL_H
