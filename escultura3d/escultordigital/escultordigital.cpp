@@ -1,7 +1,7 @@
 #include "escultordigital.h" //Inclusão de declaração da classe
 #include <iostream>
-#include <cmath>
-#include <fstream> //inclusão de fluxo para arquivos
+#include <cmath> //funções matemáticas
+#include <fstream> //inclusão do fluxo para arquivos
 #include <cstdlib> //inclusão da função exit
 #include <vector>
 #include <opencv2/highgui.hpp>
@@ -20,7 +20,7 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz) { //parametro da função
     ny = _ny;
     nz = _nz;
 
-    // Atribuindo zero as  variáveis de cores e transparencia protect:
+    // Atribuindo zero as  variáveis de cores e transparência:
     r = 0;
     g = 0;
     b = 0;
@@ -29,7 +29,7 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz) { //parametro da função
     //Declarando incrementadores dos laços:
     int i, j, k;
 
-    //ALOCANDO MEMÓRIA 3D:
+    //ALOCANDO MEMÓRIA PARA MATRIZ 3D:
     //Alocando memória para o array auxiliar que receberá endereços das linhas onde inicia-se cada plano:
     v = new Voxel **[nx];
     //Alocando memória para o array que receberá o endereço do voxel de inicio de cada linha:
@@ -50,7 +50,7 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz) { //parametro da função
         }
     }
 
-    //Iniciando os voxels com cores e transparencia zero e estado false:
+    //Iniciando os voxels com cores e transparência zero e estado false:
     for(i = 0; i < nx; i++){
         for (j = 0; j < ny; j++){
             for (k = 0; k < nz; k++){
@@ -68,6 +68,7 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz) { //parametro da função
 IMPLEMENTO DO DESTRUIDOR DE CLASSES:
 =================================================================================*/
 Sculptor::~Sculptor(){
+    //Liberação da memória:
     delete[] v[0][0];
     delete[] v[0];
     delete[] v;
@@ -77,7 +78,7 @@ Sculptor::~Sculptor(){
 IMPLEMENTAÇÃO DO SETCOLOR:
 ==================================================================================*/
 void Sculptor::setColor(float r, float g, float b, float a){
-    //r,g,b,a protegidos recebendo os valores dos parametros:
+    //r,g,b,a privados recebendo os valores dos parametros:
     this -> r = r;
     this -> g = g;
     this -> b = b;
@@ -90,7 +91,7 @@ IMPLEMENTAÇÃO DO PUTVOXEL (ATIVAÇÃO DE VOXEL):
 void Sculptor::putVoxel(int x, int y, int z){
     /*Condição que checa se os valores dos parametros estão dentro
     dos valores válidos para nx, ny, nz */
-    if((this -> nx >x) && (this -> ny >y) && (this -> nz > z )){
+    if((this -> nx > x) && (this -> ny > y) && (this -> nz > z)){
         this -> v[x][y][z].show = true;
         this -> v[x][y][z].r = this -> r;
         this -> v[x][y][z].g = this -> g;
@@ -105,10 +106,11 @@ void Sculptor::putVoxel(int x, int y, int z){
 IPLEMENTAÇÃO DO CUTVOXEL (DESATIVAÇÃO DE VOXEL)
 ==================================================================================*/
 void Sculptor::cutVoxel(int x, int y, int z){
-    if((this -> nx >x) && (this -> ny >y) && (this -> nz > y)){
+    if((this -> nx > x) && (this -> ny > y) && (this -> nz > y)){
         this -> v[x][y][z].show = false;
     }
 }
+
 /*=================================================================================
 IMPLEMENTAÇÃO DO PUTBOX:
 ==================================================================================*/
@@ -151,11 +153,8 @@ void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius){
     }
 }
 
-
-
-
 /*=================================================================================
- IMPLEMENTAÇÃO DO CUTSPEHERE:
+ IMPLEMENTAÇÃO DO CUTSPHERE:
 =================================================================================*/
 void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius){
     int i, j, k;
@@ -288,19 +287,17 @@ void Sculptor::putTextureOnSphere(int xcenter, int ycenter, int zcenter, int rad
     for(i = 0; i < nx; i++){
         for(j = 0; j < ny; j++){
             for(k = 0; k < nz; k++){
+                //Condição que verifica se o voxel satisfaz a equação da esfera:
                 if((pow(i - xcenter, 2)) + (pow(j - ycenter, 2)) + (pow(k - zcenter, 2)) <= (pow(radius, 2))){
-                    // Converte as coordenadas cartesianas para esféricas
+                    // Conversão das coordenadas da esfera de cartesiana para esférica:
                     double theta = atan2(j - ycenter, i - xcenter);
                     double phi = acos((k - zcenter) / (double)radius);
-
-                    // Mapeia as coordenadas esféricas para as coordenadas da imagem
-                    int u = image.cols * (theta + M_PI) / (2 * M_PI);
-                    int v = image.rows * phi / M_PI;
-
-                    // Obtém a cor do pixel correspondente na imagem
+                    // Mapeamento das coordenadas esféricas para as coordenadas da imagem:
+                    int u = image.cols * (theta + M_PI) / (2 * M_PI); //theta
+                    int v = image.rows * phi / M_PI; //phi
+                    // color recebe as cores dos pixels:
                     cv::Vec3b color = image.at<cv::Vec3b>(v, u);
-
-                    // Atribui a cor ao voxel
+                    // Atribuição dessas cores ao voxel:
                     this -> v[i][j][k].show = true;
                     this -> v[i][j][k].r = color[2]; // R
                     this -> v[i][j][k].g = color[1]; // G
