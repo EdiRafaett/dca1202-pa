@@ -11,3 +11,6 @@ Esse  novo algoritmo converte as coordenadas cartesianas da esfera em coordenada
 É possível gerar a visualização de novos planetas sendo necessário apenas encontrar sua textura 2D no formato equiretangular e adicionar no diretório "imagens"
 Posteriormente alterar o nome do planeta no caminho que leva até a imagem no arquivo main.cpp.
 No diretório "saidasoff" estão disponíveis os arquivos prontos de todos os planetas, assim como do Sol e da Lua, no formato .off previamente gerados. Caso seja gerada a representação de um novo planeta o arquivo referente .off estrá nomeado com "saida.off" no mesmo diretório.
+
+## Terra de voxels:
+![Logo do GitHub](terra.png)
