@@ -103,7 +103,7 @@ void Sculptor::putVoxel(int x, int y, int z){
 }
 
 /*=================================================================================
-IPLEMENTAÇÃO DO CUTVOXEL (DESATIVAÇÃO DE VOXEL)
+IPLEMENTAÇÃO DO CUTVOXEL (DESATIVAÇÃO DE VOXEL):
 ==================================================================================*/
 void Sculptor::cutVoxel(int x, int y, int z){
     if((this -> nx > x) && (this -> ny > y) && (this -> nz > y)){
